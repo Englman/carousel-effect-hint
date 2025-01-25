@@ -1,0 +1,267 @@
+/* USER VARIABLES SECTION */
+
+:root {
+	--accent: #67e61e;
+	--text: rgb(51, 51, 51);
+	--regular-text: 16px;
+	--lineheight: 1.65;
+	--userfont: roboto-st, sans-serif;
+	--systemfont: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+	--padding: 120px;
+	--transition: cubic-bezier(.4, 0, 0, 1);
+}
+
+/* BOOTSTRAP SETTINGS SECTION */
+
+/* gutter 20px (10px + 10px). Comment this code for default gutter start at 1.5rem (24px) wide. */
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl { --bs-gutter-x: .625rem; }
+.row, .row > * { --bs-gutter-x: 1.25rem; }
+
+/* FONTS LOAD SECTION */
+
+@font-face { src: url("../fonts/roboto-regular-webfont.woff2") format("woff2"); font-family: "roboto-st"; font-weight: 400; font-style: normal; }
+@font-face { src: url("../fonts/roboto-italic-webfont.woff2") format("woff2"); font-family: "roboto-st"; font-weight: 400; font-style: italic; }
+@font-face { src: url("../fonts/roboto-bold-webfont.woff2") format("woff2"); font-family: "roboto-st"; font-weight: 700; font-style: normal; }
+@font-face { src: url("../fonts/roboto-bolditalic-webfont.woff2") format("woff2"); font-family: "roboto-st"; font-weight: 700; font-style: italic; }
+@font-face { src: url("../fonts/Porsche\ Regular.woff2") format("woff2"); font-family: "porsche-st"; font-weight: 700; font-style: italic; }
+
+/* GENERAL CSS SETTINGS */
+
+::placeholder { color: #666; }
+::selection { background-color: var(--accent); color: #fff; }
+input, textarea { outline: none; }
+input:focus:required:invalid, textarea:focus:required:invalid { border-color: red; }
+input:required:valid, textarea:required:valid { border-color: green; }
+
+body {
+	font-family: var(--userfont);
+	font-size: var(--regular-text);
+	line-height: var(--lineheight);
+	color: var(--text);
+	min-width: 320px;
+	position: relative;
+	overflow-x: hidden;
+}
+
+/* USER STYLES */
+
+body, html{
+	height: 100%;
+}
+
+.showcase{
+	background-color: #000;
+	height: 100%;
+	position: relative;
+	color: #fff;
+	/* overflow: hidden; */
+}
+
+.showcase::before{  /* Псевдоэлемент который используется для вывода желаемого текста до содержимого элемента */
+	content: '';
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	box-shadow: inset 0 0 500px #000;
+}
+
+.showcase::after{  	/* Псевдоэлемент который используется для вывода желаемого текста после содержимого элемента */
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-image: url(../images/light.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center -65px;
+	animation: k-light 3s ease-in-out infinite;
+}
+
+.showcase_video{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* Данное свойство позволяет указать способ изменения размера элемента относительно его контейнера. В данном случае cover занимает все доступное пространство не зависимо от разрешения */
+	opacity: .48;
+}
+.showcase_content-wrapper{
+	position: relative;
+	z-index: 2;
+	height: 100%;
+	padding: var(--padding) 0;
+}
+.showcase_content-wrapper::before{
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-image: url(../images/glow.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	animation: k-glow 1.8s ease-in-out infinite;
+}
+.showcase_header{
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	z-index: 1;
+	top: 40px;
+	font-family: porsche-st;
+	font-size: 29px;
+	color: rgba(255, 255, 255, 0.75);
+}
+.showcase_header span{
+	color: var(--accent);
+	text-shadow: 3.5px 2px 4px cadetblue;
+}
+.showcase-carousel .swiper-wrapper{
+	transition: var(--transition);
+}
+.showcase-carousel_item{
+	position: relative;
+	height: calc(100vh - var(--padding)*2);
+	text-align: center;
+	opacity: 0.28;
+	transform: scale(0.75);
+	transition: opacity 1.8s var(--transition), transform 1.8s var(--transition);
+}
+.showcase-carousel_item p {
+	position: absolute;
+	bottom: 60px;
+	width: 100%;
+	font-family: porsche-st;
+	font-size: 28px;
+	color: #68e228;
+	text-shadow: rgb(106, 219, 91) 0 0 10px;
+	opacity: .7;
+}
+.showcase-carousel_item.swiper-slide-active{
+	opacity: 0.8;
+	transform: scale(0.98);
+}
+.showcase-carousel_image-wrapper > *{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	perspective: 150px;
+	transform-style: preserve-3d;
+}
+.showcase-carousel_image{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.showcase-carousel_image-left{
+	perspective-origin: left center;
+	clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);  /* Данное свойство позволяет обрезать тег или изображение по половине */
+}
+.showcase-carousel_image-right{
+	perspective-origin: right center;
+	clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);  /* Данное свойство позволяет обрезать тег или изображение по половине */
+}
+.showcase-carousel_image-left .showcase-carousel_image{
+	animation: k-left-side 2s ease-in-out infinite;
+	animation-direction: alternate;
+}
+.showcase-carousel_image-right .showcase-carousel_image{
+	animation: k-right-side 2s ease-in-out infinite;
+	animation-direction: alternate;
+}
+
+/* NAVIGATION */
+
+.showcase-navigation{
+	overflow: hidden;
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.showcase-navigation > *{
+	position: absolute;
+	height: 100%;
+	width: 50%;
+	outline: none;
+	cursor: pointer;
+}
+.showcase-navigation_next{
+	right: 0;
+}
+.showcase-navigation > *::before{
+	content: '?';
+	font-family: porsche-st;
+	opacity: 0;
+	transition: opacity .75s ease-out;
+	position: absolute;
+	transform: rotate(-90deg);
+	left: 35px;
+	top: 50%;
+	font-size: 35px;
+}
+.showcase-navigation > *:hover::before{
+	opacity: .25;
+}
+.showcase-navigation_next::before{
+	transform: rotate(90deg);
+	right: 50px;
+	left: auto;
+}
+.showcase-navigation > *.swiper-button-disabled {
+	display: none;
+}
+
+/* ANIMATIONS */
+
+@keyframes k-light{
+	0%{
+		opacity: 0.2;
+	}
+	50%{
+		opacity: 0.3;
+	}
+	100%{
+		opacity: 0.2;
+	}
+}
+
+@keyframes k-glow{
+	0%{
+		opacity: 0.6;
+	}
+	50%{
+		opacity: 0.8;
+	}
+	100%{
+		opacity: 0.6;
+	}
+}
+@keyframes k-left-side{
+	0%{
+		transform: rotateY(-1deg) scaleX(.92);
+	}
+	100%{
+		transform: rotateY(0deg) scaleX(1);
+	}
+}
+@keyframes k-right-side{
+	0%{
+		transform: rotateY(0deg) scaleX(1);
+	}
+	100%{
+		transform: rotateY(1deg) scaleX(.92);
+	}
+}
